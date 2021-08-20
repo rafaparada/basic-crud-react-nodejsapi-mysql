@@ -1,3 +1,9 @@
+Es un crud bien básico realizado en react, lee una base de datos mysql almacenada en https://www.alwaysdata.com/fr/ a traves de una api echa en nodejs hospedada en https://www.heroku.com/
+
+puedes ver el ejemplo funcionando aqui
+
+https://rafaparada.github.io/basic-crud-react-nodejsapi-mysql/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
