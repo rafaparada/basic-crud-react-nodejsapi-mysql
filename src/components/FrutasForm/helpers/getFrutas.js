@@ -1,6 +1,6 @@
 const getFrutas = async () =>{
     try{
-        const request     = await fetch('http://localhost:8000/frutas');
+        const request     = await fetch('https://rafpapp.herokuapp.com/frutas');
         const {frutas}    = await request.json();
         return frutas;
 
