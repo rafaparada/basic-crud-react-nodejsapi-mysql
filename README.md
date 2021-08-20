@@ -4,6 +4,10 @@ puedes ver el ejemplo funcionando aqui
 
 https://rafaparada.github.io/basic-crud-react-nodejsapi-mysql/
 
+La api desarrollada en node la puedes encontrar aqui
+
+https://github.com/rafaparada/api-rest-nodejs
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
