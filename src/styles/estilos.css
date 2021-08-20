@@ -1,0 +1,19 @@
+.myAlert{top: 1px; left: 0px; right: 0px; margin-left: auto; margin-right: auto; width: 50%; position: absolute; z-index: 21; display: block;}
+.myLoading{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5000;
+    background-color: rgba(0,0,0,0.0);
+    outline-color: transparent;border:none;
+}
+
+.tamano {
+   width: 100px;
+   height: 100px;
+}
+
+input{
+    text-transform: uppercase;
+}
