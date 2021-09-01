@@ -2,7 +2,7 @@ import getFrutas from "../components/FrutasForm/helpers/getFrutas";
 import { useState,useEffect,useRef} from "react"
     const useFrutasForm = () => {
     const urlBaseApi = 'https://rafpapp.herokuapp.com';
-    const [frutas,setFrutas]=useState({nombre:'',color:'',precio:''});
+    const [frutas,setFrutas]=useState({});
     const [successRequest,setSuccessRequest]=useState(false);
     const [fetchFrutas,setFetchFrutas] = useState([]);
     const [mensajeReq,setMensajeReq] = useState('');
@@ -31,7 +31,7 @@ import { useState,useEffect,useRef} from "react"
         }
     }, [editOn])
     
-    useEffect(()=>{ myInputRef.current.focus();},[]);
+    //useEffect(()=>{ myInputRef.current.focus();},[]);
 
     const handleInput = (e) =>{
         const newData = {...frutas};
@@ -39,12 +39,11 @@ import { useState,useEffect,useRef} from "react"
         setFrutas(newData);
     } 
 
-    const submitForm =  async(e) =>{
-        e.preventDefault();
+    const submitForm =  async(values) =>{
         const options = {
             method:'POST',
             headers:{'Content-Type': 'application/json'},
-            body:JSON.stringify(frutas)
+            body:JSON.stringify(values)
         };
         setIsLoading(true);
         const res     = await fetch(urlBaseApi+'/crear',options);
@@ -53,7 +52,6 @@ import { useState,useEffect,useRef} from "react"
         setMensajeReq(data.mensaje);
         setFrutas({nombre:'',color:'',precio:''});
         setIsLoading(false);
-        myInputRef.current.focus();
         setGetFruits(Date.now());
     }
 
@@ -105,7 +103,7 @@ import { useState,useEffect,useRef} from "react"
 
 
 
-    return [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate,setEditOn,isLoading,myInputRef]
+    return [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate,setEditOn,isLoading,myInputRef,setFrutas]
     //Estaba enviando setFrutas y no lo utilizo en el componente, eso causaba un error que no podia encontrar
     //No enviar cosas que no se van utilizar
 }
