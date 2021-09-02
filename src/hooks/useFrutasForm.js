@@ -1,8 +1,7 @@
+import { useState,useEffect} from "react"
 import getFrutas from "../components/FrutasForm/helpers/getFrutas";
-import { useState,useEffect,useRef} from "react"
     const useFrutasForm = () => {
     const urlBaseApi = 'https://rafpapp.herokuapp.com';
-    const [frutas,setFrutas]=useState({});
     const [successRequest,setSuccessRequest]=useState(false);
     const [fetchFrutas,setFetchFrutas] = useState([]);
     const [mensajeReq,setMensajeReq] = useState('');
@@ -10,7 +9,6 @@ import { useState,useEffect,useRef} from "react"
     const [idToUpdate,setIdToUpdate]=useState(0);
     const [isLoading,setIsLoading] = useState(false);
     const [getFruitss,setGetFruits] = useState(0);
-    const myInputRef = useRef();
     
     const showAlert = () =>{
         setSuccessRequest(true);
@@ -24,21 +22,7 @@ import { useState,useEffect,useRef} from "react"
         });
         setIsLoading(false);
     },[getFruitss]);
-
-    useEffect(() => {
-        if(!editOn){
-            setFrutas({nombre:'',color:'',precio:''});
-        }
-    }, [editOn])
     
-    //useEffect(()=>{ myInputRef.current.focus();},[]);
-
-    const handleInput = (e) =>{
-        const newData = {...frutas};
-        newData[e.target.id] = e.target.value.toUpperCase();
-        setFrutas(newData);
-    } 
-
     const submitForm =  async(values) =>{
         const options = {
             method:'POST',
@@ -50,7 +34,6 @@ import { useState,useEffect,useRef} from "react"
         const data    = await res.json();
         showAlert();
         setMensajeReq(data.mensaje);
-        setFrutas({nombre:'',color:'',precio:''});
         setIsLoading(false);
         setGetFruits(Date.now());
     }
@@ -71,16 +54,16 @@ import { useState,useEffect,useRef} from "react"
     }
     
 
-    const editFruit = id =>{
-        const {nombre,color,precio} = fetchFrutas.find(fruit=>(fruit.id === id));
+    const editFruit = (id,fruit,setValues) =>{
+        const fruitToEdit = {...fruit};
+        delete fruitToEdit.id;
         setEditOn(true);
         setIdToUpdate(id);
-        setFrutas({nombre:nombre,color:color,precio:precio});
+        setValues(fruitToEdit);
     }
 
-    const submitUpdate = async(e)=>{
-        e.preventDefault();
-        const frutasToUp = {...frutas,id:idToUpdate};
+    const submitUpdate = async(values)=>{
+        const frutasToUp = {...values,id:idToUpdate};
         const options    = {method:'PUT',headers:{'Content-type':'application/json'},body:JSON.stringify(frutasToUp)};
         setIsLoading(true);
         const request    = await fetch(urlBaseApi+'/update',options);
@@ -89,10 +72,13 @@ import { useState,useEffect,useRef} from "react"
         setEditOn(false);
         setIdToUpdate(0);
         showAlert();
-        setFrutas({nombre:'',color:'',precio:''});
         setIsLoading(false);
-        myInputRef.current.focus();
         setGetFruits(Date.now());
+    }
+
+    const resetFruitForm = (resetForm) =>{
+        setEditOn(false);
+        resetForm();
     }
 
 
@@ -103,7 +89,7 @@ import { useState,useEffect,useRef} from "react"
 
 
 
-    return [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate,setEditOn,isLoading,myInputRef,setFrutas]
+    return [submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate,isLoading,resetFruitForm]
     //Estaba enviando setFrutas y no lo utilizo en el componente, eso causaba un error que no podia encontrar
     //No enviar cosas que no se van utilizar
 }
