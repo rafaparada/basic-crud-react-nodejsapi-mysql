@@ -6,7 +6,7 @@ import Loading from './Loading';
 import { defaultValuesFrutasForm } from "./helpers/defaultValuesForms";
 import * as Yup from 'yup';
 const myValidation = Yup.object().shape({
-    nombre:Yup.string().required('Ingrese el nombre de la fruta papu'),
+    nombre:Yup.string().max(15,'EL nombre no debe pasar de 15 caracteres').required('Ingrese el nombre de la fruta papu'),
     color:Yup.string().required('Seleccione el color papu'),
     precio:Yup.number().typeError('El precio debe ser numérico').positive('El precio debe ser positivo').required('Ingrese el Precio'),
 });
