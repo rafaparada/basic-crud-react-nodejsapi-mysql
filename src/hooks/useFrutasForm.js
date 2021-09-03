@@ -19,8 +19,8 @@ import getFrutas from "../components/FrutasForm/helpers/getFrutas";
         setIsLoading(true);
         getFrutas().then(fruits=>{
             setFetchFrutas(fruits)
+            setIsLoading(false);
         });
-        setIsLoading(false);
     },[getFruitss]);
     
     const submitForm =  async(values) =>{
