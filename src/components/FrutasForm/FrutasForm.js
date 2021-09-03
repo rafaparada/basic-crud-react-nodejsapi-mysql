@@ -35,7 +35,7 @@ const FrutasForm = () => {
                                 <Form>
                                     <label htmlFor="nombre">Fruta:</label>
                                     <Field id="nombre" name="nombre" className="form-control" />
-                                    <ErrorMessage name="nombre" component="div" className="alert alert-warning" />
+                                    {(errors.nombre && touched.nombre) && <ErrorMessage name="nombre" component="div" className="alert alert-warning" />}
                                     <label htmlFor="color">Color:</label>
                                     <Field id="color" name="color" as="select" className="form-select">
                                         <option value="">Seleccione</option>
@@ -47,12 +47,12 @@ const FrutasForm = () => {
                                         <option value="Negro">Negro</option>
                                         <option value="Anaranjado">Anaranjado</option>
                                     </Field>
-                                    <ErrorMessage name="color" component="div" className="alert alert-warning"/>
+                                    {(errors.color && touched.precio) && <ErrorMessage name="color" component="div" className="alert alert-warning"/> }
                                     <label htmlFor="precio">Precio:</label> 
                                     <Field id="precio" name="precio" className="form-control" />
-                                    <ErrorMessage name="precio" component="div" className="alert alert-warning"/>
+                                    {(errors.precio && touched.precio) &&  <ErrorMessage name="precio" component="div" className="alert alert-warning"/>}
                                     <button type="submit" className="btn btn-primary mt-3">{editOn ? "Guardar cambios":"Registrar"}</button>
-                                     {editOn && <button type="button" className="btn btn-danger mt-2" onClick={()=>resetFruitForm(resetForm)}>Cancelar</button>}
+                                     {editOn && <button type="button" className="btn btn-danger mt-3 ms-3" onClick={()=>resetFruitForm(resetForm)}>Cancelar</button>}
                                     <hr />
                                     <TablaFrutas fetchFrutas={fetchFrutas} deleteFruit={deleteFruit} editFruit={editFruit} setValues={setValues} />
                                 </Form>
